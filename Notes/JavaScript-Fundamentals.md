@@ -16,14 +16,14 @@ Scripts are provided and executed as plain text. They don’t need special prepa
 
 ## Linking a JavaScript File
 
-```bash
+```js
 let js = "amazing";
 console.log(40 + 8 + 23 - 10);
 ```
 
 ## Values and Variables
 
-```bash
+```js
 console.log("Subhadeep");
 console.log(23);
 
@@ -35,7 +35,7 @@ console.log(firstName);
 
 ## Variable name conventions
 
-```bash
+```js
 let jonas_matilda = "JM";
 let $function = 27;
 
@@ -73,7 +73,7 @@ these are the primitive types in JavaScript.
 
 - *Numbers:* 10, -3, 2.6, 3.484, 100, 1000 etc.
 
-```
+```js
 console.log(49);
 console.log(1.33);
 console.log(-5);
@@ -86,7 +86,7 @@ console.log(typeof 2.47);
 
 - *Strings:* "Hello"
 
-```
+```js
 console.log("This is a String");
 console.log('This is a String');
 console.log(`This is a String`);
@@ -95,7 +95,7 @@ console.log(typeof "Hello");
 ```
 
 - *Boolean:* True or False
-```
+```js
 console.log(true);
 console.log(false);
 
@@ -105,7 +105,7 @@ console.log(typeof true);
 
 When a variable is first declared in JS, it is 'undefined' and it's type is also 'undefined'.
 So basically 'undefined' is BOTH the value as well as the type of the value!!
-```
+```js
 var age;
 console.log(age);
 console.log(typeof age);
@@ -120,7 +120,7 @@ Note the following though. 'null' is again both a type as well as a value, just 
 So typeof undefined returns undefined, but typeof null returns object.
 So the following makes no sense. This is normally considered as a bug in JS (?)
 
-```
+```js
 var company = null;
 console.log(company);
 
@@ -132,7 +132,7 @@ console.log(typeof null);
                     e.g. Object
 
 - *Objects:* If we have to somehow store Key-Value pairs, then we can use objects.
-```
+```js 
 <key,value>
 
 var user = {
@@ -152,13 +152,13 @@ We will be coming back to these later in the course.
 
 **let** can be used when you want to 'mutate' a variable, i.e. assign it a value only to reassign it later
 
-```
+```js
 let firstName = "Jane";
 firstName = "Jack";
 ```
 **const** is used when the value assigned to that variable cannot be reassigned - immutable
 
-```
+```js
 const yearOfBirth = 2020;
 ```
 ```
@@ -167,7 +167,7 @@ yearOfBirth = 2021; //Error: Attempt to assign to const or readonly variable.
 
 
 For the same reason, creating a const variable without assigning a value to it is invalid.
-```
+```js
 const yearOfDeath; //const variable without initializer is not allowed
 ```
 
@@ -175,7 +175,7 @@ We don't even need to define variables at all, we can directly write the name of
 
 But this is a very bad idea, because in that case JS will create a property on the global object (?)
 
-```
+```js
 middleName = "Vesuvius";
 ```
 
@@ -188,7 +188,7 @@ middleName = "Vesuvius";
 
 ## Basic Operator
 **`Math Operator`**
-```
+```js
 const now = 2037;
 const agePaul = now - 1991;
 const ageSarah = now - 2018;
@@ -206,7 +206,7 @@ console.log(firstName + ' ' + lastName);
 ```
 **`Assignment operators`**
 
-```
+```js
 let x = 10 + 5; // output: 15
 
 x += 10; // x = x + 10 - Output: 25
@@ -221,7 +221,7 @@ console.log(x);
 ```
 
 **`Comparison operators`**
-```
+```js
 console.log(agePaul > ageSarah); //  >, <, >=, <=
 console.log(ageSarah >= 18);  // Output: true
 
@@ -230,7 +230,7 @@ const isFullAge = ageSarah >= 18;
 console.log(now - 1991 > now - 2018);
 ```
 ## Operator Precedence 
-```
+```js
 const now = 2037;
 const agePaul = now - 1991;
 const ageSarah = now - 2018;
@@ -264,7 +264,7 @@ TEST DATA 2: Marks weights 95 kg and is 1.88 m tall. John weights 85 kg and is 1
 
 *Solution*
 
-```
+```js
 const massMark = 95;
 const heightMark = 1.88;
 
@@ -280,7 +280,7 @@ console.log(BMIMark, BMIJohn, markHigherBMI);
 
 ## String and Template Literals
 
- ```
+ ```js
  let currYear = 2020;
 let introYear = 1995;
 
@@ -301,7 +301,7 @@ console.log(`This is a
 
 ## Taking Decisions: if else Statements
 
-```
+```js
 const age = 15;
 if (age >= 18) {
   console.log('Sarah can start driving license 🚗');
@@ -330,7 +330,7 @@ Use the BMI example from Challenge #1, and the code you already wrote, and impro
 
 #### Solution
 
-```
+```js
 const massMark = 78;
 const heightMark = 1.69;
 
@@ -363,7 +363,7 @@ if (BMIMark > BMIJohn) {
 The conversion takes place manually or explicitly by typing the method or function
   name before converting the values, it is known as Explicit Conversion.
 
-```
+```js
 // This won't work obviously
 
 let currentYear = "2020";
@@ -389,7 +389,7 @@ console.log(String(23), 23); // You can see that the two values are different be
 Type coercion is when JavaScript automatically converts types behind the scenes for us.
 So basically, type coercion happens whenever an operator is dealing with two values that have different types.
 
-```
+```js
 For eg. when the '+' operator is given a number and a string, it will convert the number to string
 
 console.log("In 10 years, it will be " + currentYear + 10); // Prints: In 10 years, it will be 202010
@@ -413,7 +413,7 @@ console.log(2 + 3 + 4 + '5'); // Prints: 95
 
 
 ## Truthy and Falsy Values
-```
+```js
 // In JS, we have 5 'falsy' values: 0, '' (the empty string),undefined, null, NaN
 // What this means is that any value that is not one of the above values is going to be converted into 'true' if we convert it into a Boolean type variable. Only the above 5 values will be converted to false on conversion to boolean values
 
@@ -441,7 +441,7 @@ if (height) {
 ```
 ## Equality Operators: == vs. ===
 
-```
+```js
 const age = '18';
 if (age === 18) console.log('You just became an adult :D (strict)'); // output: true (strict equality doesn't perform type coercion)
 if (age == 18) console.log('You just became an adult :D (loose)'); // Lose equality does the type coercion therefore output: true (the string '18' will be converted to number before checking) 
@@ -466,7 +466,7 @@ So as a general rule for clean code, avoid the loose equality operator as much a
 
 ## Logical Operators
 
-```
+```js
 const hasDriversLicense = true; // A
 const hasGoodVision = true; // B
 
@@ -507,7 +507,7 @@ TEST DATA: Dolphins score 96, 108 and 89. Koalas score 88, 91 and 110 TEST DATA 
 
 **Solution**
 
-```
+```js
 const scoreDolphins = (96 + 108 + 89) / 3;
 const scoreKoalas = (88 + 91 + 110) / 3;
 
@@ -523,7 +523,7 @@ if (scoreDolphins > scoreKoalas) {
 ```
 
 **Bonus 1**
-```
+```js
 const scoreDolphins = (97 + 112 + 80) 3;
 const scoreKoalas = (109 + 95 + 50) 3;
 
@@ -541,7 +541,7 @@ console.log('No one wins the trophy 😭');
 ```
 ## The switch Statement
 
-```
+```js
 const day = 'friday';
 
 switch (day) {
@@ -586,7 +586,7 @@ if (day === 'monday') {
 
 ## Statements and Expressions
 
-```
+```js
 3 + 4 // output: 7 - an expression
 1991
 true && false && !false
@@ -605,7 +605,7 @@ console.log(`I'm ${2050 - 1997} years old ${me}`); // In javascript literals we 
 
 ## The Conditional (Ternary) Operator
 
-```
+```js
 const age = 23;
 // age >= 18 ? console.log('I like to drink wine 🍷') : console.log('I like to drink water 💧');
 
