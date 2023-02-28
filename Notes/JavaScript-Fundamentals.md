@@ -2,7 +2,7 @@
 
 ## Hello World
 
-```bash
+```js
 console.log("Hello World");
 ```
 
