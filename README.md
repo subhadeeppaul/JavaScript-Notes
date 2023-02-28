@@ -6,7 +6,7 @@ This repository is dedicated to the JavaScript. Here you will find key highlight
 
 ## 📖Lectures
 
-- [JavaScript Fundamentals Part 1]()
+- [JavaScript Fundamentals Part 1](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/JavaScript-Fundamentals.md)
 - [JavaScript Fundamentals Part 2]()
 - [How to Navigate This Course]()
 - [Developer Skills & Editor Setup]()
