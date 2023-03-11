@@ -32,7 +32,7 @@ Scripts are provided and executed as plain text. They don’t need special prepa
 console.log("Subhadeep");
 console.log(23);
 
-let firstName = "Matilda";
+let firstName = "Paul";
 console.log(firstName);
 console.log(firstName);
 console.log(firstName);
