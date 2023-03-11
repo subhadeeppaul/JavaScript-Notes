@@ -16,9 +16,13 @@ Scripts are provided and executed as plain text. They don’t need special prepa
 
 ## Linking a JavaScript File
 
-```js
-let js = "amazing";
-console.log(40 + 8 + 23 - 10);
+```html
+<body>
+  <script>
+    console.log("Hello World");
+  </script>
+  Hello Everyone
+</body>
 ```
 
 ## Values and Variables
