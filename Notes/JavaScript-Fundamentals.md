@@ -24,6 +24,7 @@ Scripts are provided and executed as plain text. They don’t need special prepa
   Hello Everyone
 </body>
 ```
+**Best Practice:** The best practice is to put JavaScript <script> tags just before the closing </body> tag rather than in the <head> section of your HTML. The reason for this is that HTML loads from top to bottom. The head loads first, then the body, and then everything inside the body.
 
 ## Values and Variables
 
