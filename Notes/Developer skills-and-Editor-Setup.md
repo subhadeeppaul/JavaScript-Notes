@@ -92,3 +92,4 @@ WHENEVER JOHN ENCOUNTERS A PROBLEM:
 - Alternatively, you could also write down `debugger;` anywhere in your js code, and then the code would automatically switch over to the debugger when that particular line is reached.
 
 
+[BACK ⬅️](https://github.com/subhadeeppaul/JavaScript-Notes)
