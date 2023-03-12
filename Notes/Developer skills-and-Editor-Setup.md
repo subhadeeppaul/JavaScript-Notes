@@ -1,7 +1,7 @@
 # Developer Skills & Editor Setup
 ---
 ## Installing Node.js and setting up a dev env
---- 
+
 - Check if npm is already installed in your IDE using: `npm -v`.
 - Install live-server by running `npm install live-server -g`
 - Launch the web page by running `live-server.` Now you will not have to reload the page every time you make changes to see if the changes took effect or not.
