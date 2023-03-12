@@ -1,4 +1,4 @@
-# 4. Developer Skills & Editor Setup
+# Developer Skills & Editor Setup
 ---
 ## Installing Node.js and setting up a dev env
 --- 
