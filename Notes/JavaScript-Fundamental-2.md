@@ -424,7 +424,7 @@ Let's go back to Mark and John comparing their BMIs! This time, let's use object
 - Log to the console who has the higher BMI, together with the full name and the respective BMI. Example: "John Smith's BMI (28.3) is higher than Mark Miller's (23.9)!"
 
 TEST DATA: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95 m tall.
-
+*Solution*
 ```js
 const mark = {
   fullName: 'Mark Miller',
@@ -566,10 +566,10 @@ for (let exercise = 1; exercise < 4; exercise++) {
 ```
 
 ## The while Loop
-
+*Solution*
 ```js
-  for (let rep = 1; rep <= 10; rep++) {
-  console.log(`Lifting weights repetition ${rep} 🏋️‍♀️`);
+for (let rep = 1; rep <= 10; rep++) {
+console.log(`Lifting weights repetition ${rep} 🏋️‍♀️`);
 }
 
 let rep = 1;
