@@ -424,6 +424,7 @@ Let's go back to Mark and John comparing their BMIs! This time, let's use object
 - Log to the console who has the higher BMI, together with the full name and the respective BMI. Example: "John Smith's BMI (28.3) is higher than Mark Miller's (23.9)!"
 
 TEST DATA: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95 m tall.
+
 *Solution*
 ```js
 const mark = {
@@ -601,6 +602,7 @@ HINT: Call calcTip in the loop and use the push method to add values to the tips
 
 **BONUS:** Write a function 'calcAverage' which takes an array called 'arr' as an argument. This function calculates the average of all numbers in the given array. This is a DIFFICULT challenge (we haven't done this before)! Here is how to solve it: 4.1. First, you will need to add up all values in the array. To do the addition, start by creating a variable 'sum' that starts at 0. Then loop over the array using a for loop. In each iteration, add the current value to the 'sum' variable. This way, by the end of the loop, you have all values added together 4.2. To calculate the average, divide the sum you calculated before by the length of the array (because that's the number of elements) 4.3. Call the function with the 'totals' array
 
+*Solution*
 ```js
 const calcTip = function (bill) {
   return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
