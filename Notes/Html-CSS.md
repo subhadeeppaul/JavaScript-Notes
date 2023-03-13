@@ -64,7 +64,9 @@
 
 ![BoxModel](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/BoxModel.png)
 
-- The CSS file corresponding to the HTML in the section above: ```css
+- The CSS file corresponding to the HTML in the section above: 
+ 
+ ```html
  /*
 Certain elements have their default padding and margin values.
 Before we start changing margin, paddings, we often want all of these default value to be changed to 0.
