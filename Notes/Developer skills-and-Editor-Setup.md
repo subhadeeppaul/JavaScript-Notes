@@ -91,5 +91,4 @@ WHENEVER JOHN ENCOUNTERS A PROBLEM:
 - In Chrome, you can go to the Sources tab and view the debugger. You can set breakpoints, check the values of the variables, everything that you want.
 - Alternatively, you could also write down `debugger;` anywhere in your js code, and then the code would automatically switch over to the debugger when that particular line is reached.
 
-
 [BACK ⬅️](https://github.com/subhadeeppaul/JavaScript-Notes)
