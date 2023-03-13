@@ -67,11 +67,13 @@
 - The CSS file corresponding to the HTML in the section above: 
  
  ```css
+  
  /*
 Certain elements have their default padding and margin values.
 Before we start changing margin, paddings, we often want all of these default value to be changed to 0.
 We use the * operator to select all of the elements on the web page. This is often called a "global reset".
 */
+  
 * {
   margin: 0;
   padding: 0;
@@ -98,8 +100,9 @@ h2 {
 p {
   margin-bottom: 20px;
 }
-/*This is how we select classes. Beginning with a dot and then followed by the class name.
-*/
+  
+//This is how we select classes. Beginning with a dot and then followed by the class name.
+
 .first {
   color: red;
 }
@@ -115,10 +118,12 @@ This is how we select elements that have an 'id' associated with them.
   padding: 25px;
   margin-top: 30px;
 }
+  
 /*
 Suppose we want a rule to apply to two or more elements, then we can just separate the two elements by commas
 For eg. in the following case, the style will be applied to both the input element as well as the button element
 */
+  
 input,
 button {
   padding: 10px;
