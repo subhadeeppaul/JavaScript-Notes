@@ -66,7 +66,7 @@
 
 - The CSS file corresponding to the HTML in the section above: 
  
- ```html
+ ```css
  /*
 Certain elements have their default padding and margin values.
 Before we start changing margin, paddings, we often want all of these default value to be changed to 0.
