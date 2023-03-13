@@ -60,13 +60,16 @@
  - According to the box model in CSS, each and every element on a web page can be seen as a rectangular box.
  
 
-## Screenshots
+
 
 ![BoxModel](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/BoxModel.png)
-  
-- The CSS file corresponding to the HTML in the section above:
-  
-  ```css
+
+- The CSS file corresponding to the HTML in the section above: ```css
+ /*
+Certain elements have their default padding and margin values.
+Before we start changing margin, paddings, we often want all of these default value to be changed to 0.
+We use the * operator to select all of the elements on the web page. This is often called a "global reset".
+*/
 * {
   margin: 0;
   padding: 0;
@@ -93,19 +96,27 @@ h2 {
 p {
   margin-bottom: 20px;
 }
-
+/*This is how we select classes. Beginning with a dot and then followed by the class name.
+*/
 .first {
   color: red;
 }
 
-##your-name {
+/*
+This is how we select elements that have an 'id' associated with them.
+*/
+
+#your-name {
   background-color: rgb(255, 220, 105);
   border: 5px solid ##444;
   width: 400px;
   padding: 25px;
   margin-top: 30px;
 }
-
+/*
+Suppose we want a rule to apply to two or more elements, then we can just separate the two elements by commas
+For eg. in the following case, the style will be applied to both the input element as well as the button element
+*/
 input,
 button {
   padding: 10px;
@@ -116,12 +127,19 @@ a {
   background-color: yellowgreen;
 }
 
-##course-image {
+#course-image {
   width: 300px;
 }
 
-##your-name h2 {
+/*
+Another important selector in CSS/JS is the 'child selector'. When you look at the HTML, you can see that there are two h2 elements
+How could we select ONLY the h2 element that is present within the form element?
+One way would be to give the h2 element a unique id and then use that id. But we try and avoid id selectors.
+Other way would be as follows.
+We are basically telling CSS to first select the element with id 'your-name' and then in that element, select the h2 element
+*/
+
+#your-name h2 {
   color: olivedrab;
 }
 ```
-
