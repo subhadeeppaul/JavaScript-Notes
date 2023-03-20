@@ -960,3 +960,5 @@ btnHold.addEventListener('click', function () {
 
 btnNew.addEventListener('click', init);
 ```
+
+[BACK ⬅️](https://github.com/subhadeeppaul/JavaScript-Notes)
