@@ -63,8 +63,9 @@
 
 <p>
   <img src="Images/BoxModel.png" width="800" />
+ </p>
 ![BoxModel](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/BoxModel.png)
-  </p>
+  
 - The CSS file corresponding to the HTML in the section above: 
  
  ```css
