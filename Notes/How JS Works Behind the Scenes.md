@@ -406,3 +406,5 @@ console.log('After marriage: ', jessicaCopy); // amily: [ 'Alice', 'Bob', 'Mary'
 - Prototypal Inheritance Object Oriented Programming (00P) With JavaScript
 - Event Loop Asynchronous JavaScript: Promises, Async/Await and AJAX
 - How the DOM Really Works Advanced DOM and Events
+
+[BACK ⬅️](https://github.com/subhadeeppaul/JavaScript-Notes)
