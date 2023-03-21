@@ -11,7 +11,7 @@ This repository is dedicated to the JavaScript. Here you will find key highlight
 - [Developer Skills & Editor Setup](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Developer%20skills-and-Editor-Setup.md)
 - [[OPTIONAL] HTML & CSS Crash Course](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Html-CSS.md)
 - [JavaScript in the Browser: DOM and Events Fundamentals](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/DOM%20and%20Events%20Fundamentals.md)
-- [How JavaScript Works Behind the Scenes]()
+- [How JavaScript Works Behind the Scenes](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/How%20JS%20Works%20Behind%20the%20Scenes.md)
 - [Data Structures, Modern Operators and Strings]()
 - [A Closer Look at Functions]()
 - [Working With Arrays]()
