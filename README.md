@@ -12,7 +12,7 @@ This repository is dedicated to the JavaScript. Here you will find key highlight
 - [[OPTIONAL] HTML & CSS Crash Course](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Html-CSS.md)
 - [JavaScript in the Browser: DOM and Events Fundamentals](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/DOM%20and%20Events%20Fundamentals.md)
 - [How JavaScript Works Behind the Scenes](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/How%20JS%20Works%20Behind%20the%20Scenes.md)
-- [Data Structures, Modern Operators and Strings (https://github.com/subhadeeppaul/JavaScriptNotes/blob/main/Notes/Data%20Structures%2C%20Modern%20Operators%20and%20Strings.md)
+- [Data Structures, Modern Operators and Strings](https://github.com/subhadeeppaul/JavaScriptNotes/blob/main/Notes/Data%20Structures%2C%20Modern%20Operators%20and%20Strings.md)
 - [A Closer Look at Functions]()
 - [Working With Arrays]()
 - [Numbers, Dates, Intl and Timers]()
