@@ -14,7 +14,7 @@ This repository is dedicated to the JavaScript. Here you will find key highlight
 - [How JavaScript Works Behind the Scenes](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/How%20JS%20Works%20Behind%20the%20Scenes.md)
 - [Data Structures, Modern Operators and Strings](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Data%20Structures%2C%20Modern%20Operators%20and%20Strings.md)
 - [A Closer Look at Functions](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/A%20Closer%20look%20at%20functions.md)
-- [Working With Arrays]()
+- [Working With Arrays](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Working%20With%20Arrays.md)
 - [Numbers, Dates, Intl and Timers]()
 - [Advanced DOM and Events]()
 - [Object-Oriented Programming (O0P) With JavaScript]()
