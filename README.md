@@ -15,7 +15,7 @@ This repository is dedicated to the JavaScript. Here you will find key highlight
 - [Data Structures, Modern Operators and Strings](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Data%20Structures%2C%20Modern%20Operators%20and%20Strings.md)
 - [A Closer Look at Functions](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/A%20Closer%20look%20at%20functions.md)
 - [Working With Arrays](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Working%20With%20Arrays.md)
-- [Numbers, Dates, Intl and Timers]()
+- [Numbers, Dates, Intl and Timers](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Numbers%2C%20Dates%2C%20Intl%20and%20Timers.md)
 - [Advanced DOM and Events]()
 - [Object-Oriented Programming (O0P) With JavaScript]()
 - [Mapty App: OOP, Geolocation, External Libraries, and More!]()
