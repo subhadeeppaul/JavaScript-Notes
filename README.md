@@ -18,7 +18,7 @@ This repository is dedicated to the JavaScript. Here you will find key highlight
 - [Numbers, Dates, Intl and Timers](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Numbers%2C%20Dates%2C%20Intl%20and%20Timers.md)
 - [Advanced DOM and Events](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Advanced%20DOM%20and%20Events.md)
 - [Object-Oriented Programming (O0P) With JavaScript](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Object-Oriented%20Programming%20(O0P)%20With%20JavaScript.md)
-- [Mapty App: OOP, Geolocation, External Libraries, and More!]()
+- [Mapty App: OOP, Geolocation, External Libraries, and More!](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Notes/Mapty%20App.md)
 - [Asynchronous JavaScript: Promises, Async/Await, and AJAX]()
 - [Modern JavaScript Development: Modules, Tooling, and Functional]()
 - [Forkify App: Building a Modern Application]()
