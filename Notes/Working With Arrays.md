@@ -486,7 +486,7 @@ function sideEffect() {
 sideEffect();
 console.log(arr); // [1, 2] Mutates the original array.
 ```
-### Computing Usernames
+## Computing Usernames
 - each function should actually receive the data that it should work with, instead of using a global variable.
 
 ```js
