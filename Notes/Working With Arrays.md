@@ -51,7 +51,7 @@ x.sort(function(a, b){return 0.5 - Math.random()});     // random order sort
 - **lastIndexOf():** This method is used for returning the final index at which a given element appears in an array.
 - **join():** This method is used for combining elements of an array into one single string and then returning it.
 - **sort():** This method is used for sorting the array elements based on some condition.
-concat, copyWithin, every, fill, filter, find, findIndex, forEach, indexOf, isArray, join, lastIndexOf, map, pop, push, reduce, reduceRight, reverse, shift, slice, some, sort, splice, toString, unshift, valueOf
+- concat, copyWithin, every, fill, filter, find, findIndex, forEach, indexOf, isArray, join, lastIndexOf, map, pop, push, reduce, reduceRight, reverse, shift, slice, some, sort, splice, toString, unshift, valueOf
 
 ```js
 /////////////////////////////////////////////////
