@@ -963,7 +963,8 @@ labelBalance.addEventListener('click', function () {
 });
 ```
 ## Summary: Which Array method to use?
-Link-Image
+![WhichArrayMethodToUse.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/WhichArrayMethodToUse.png)
+
 
 ## Array Methods Practice
 ```js
