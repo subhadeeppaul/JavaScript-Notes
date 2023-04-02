@@ -2,16 +2,10 @@
 # Data Structures, Modern Operators and Strings
 
 ### Destructuring Arrays
+- Destructuring is a way of unpacking data from an array or an object into separate variables.
 ```js
 'use strict';
 
-const { SlowBuffer } = require('buffer');
-
-// Data needed for a later exercise
-const flights =
-  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
-
-// Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
@@ -19,73 +13,88 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
-  order: function (starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
+  // This function is an example of returning two or more than two items from a single function
+  order: function (starterIdx, mainIdx) {
+    return [this.starterMenu[starterIdx], this.mainMenu[mainIdx]];
+  }
 };
+
+// Normally you would do something like this:
+const myArray = [1,2,3];
+const a = myArray[0];
+const b = myArray[1];
+const c = myArray[2];
+
+// But starting from ES6, you can do this in single line like:
+// This means you are declaring 3 variables of type const named 'x', 'y', 'z'.
+// This means you cannot later reassign x, y, or z to different values.
+const [x, y, z] = myArray;
+console.log(a, b, c); // Prints: 1 2 3
+
+// Destructuring does not in any way affect the original array.
+console.log(myArray); // Still Prints: [1, 2, 3]
+
+// It is not necessary to extract the entire array into variables. Only a part of the array can be destructured.
+const [first, second] = restaurant.categories;
+console.log(first, second); // Prints: Italian Pizzeria
+
+// So what if we wanted the first and the third elements instead? We just leave a space for the second element.
+let [ctgry1, , ctgry3] = restaurant.categories;
+console.log(ctgry1, ctgry3); // Prints: Italian Vegetarian
+
+// Suppose you wanted to swap the values of two variables.
+// For eg. in the above, you wanted to swap the 'ctgry1' and 'ctgry3' you would do something like this:
+let temp = ctgry1;
+ctgry1 = ctgry3;
+ctgry3 = temp;
+console.log(ctgry1, ctgry3); // Prints: Vegetarian Italian
+
+// But now you can do just this:
+// So what we are doing here is basically
+// First we are creating a new array by using the [] operator containing the two elements ctgry1 and ctgry3
+// Then we are destructuring the array and storing the two elements into the swapped variables. Make sense?
+// We are not using let or const here because we are simple reassigning the values associated with the two variables.
+[ctgry3, ctgry1] = [ctgry1, ctgry3];
+console.log(ctgry1, ctgry3); // Prints: Italian Vegetarian
+
+// We can have a function return an array and then destructure that array
+// thus, in effect, having a function that returns multiple values
+let [starterItem, mainCourseItem] = restaurant.order(1, 2);
+console.log(starterItem, mainCourseItem); // Prints: Bruschetta Risotto
+
+// We can also destructure nested arrays
+const nestedArray = [1, 2, [3, 4]];
+let [val1, , val3] = nestedArray;
+console.log(val1, val3); // Prints: 1, [3,4]
+// So if we want to s=destructure the array, we then do:
+let [val0, , [nestedVal0, nestedVal1]] = nestedArray;
+console.log(val0, nestedVal0, nestedVal1); // Prints: 1,3,4
+
+// We can also set default values for the destructured array
+let [p,q,r] = [2,3];
+console.log(p,q,r); // Prints: 2 3 undefined
+// But now we assign default values for each variable
+[p=1,q=1,r=1] = [2,3];
+console.log(p,q,r); // Prints: 2 3 1
 ```
 
-```js
-const arr = [2, 3, 4];
-const a = arr[0];
-const b = arr[1];
-const c = arr[2];
-console.log(a, b, c);
-
-// can be done as following using destructring
-
-const [x, y, z] = arr;
-
-// Nested Destructuringc
-const nested = [2, 4, [5, 6]];
-// const [i, , j] = nested;
-const [i, , [j, k]] = nested;
-console.log(i, j, k);
-
-let [main, ,starter] = restaurant.categories;
-console.log(main, starter)
-
-// Switching variables
-// const temp = main
-// main = secondary
-// secondary = main
-// console.log(main, secondary)
-
-// Recieve 2 values from a function
-const [starter, mainCourse] = restaurant.order(2, 0);
-console.log(starter, mainCourse); // output: Garlic Bread Pizza
-
-// Without Default Values
-const [p, q, r] = [8, 9];
-console.log(p, q, r); // output: p = 8, q = 9, r = undefined
-
-// With Default Values
-const [s = 1, t = 1, u = 1] = [8, 9];
-console.log(s, t, u); // output: s = 8, t = 9, u = 1
-```
 ### Destructuring Objects
+- Similar to destructuring arrays, we can also destructure objects.
 
 ```js
+'use strict';
+
 const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+  // This function is an example of returning two or more than two items from a single function
+  order: function (starterIdx, mainIdx) {
+    return [this.starterMenu[starterIdx], this.mainMenu[mainIdx]];
+  },
 
   openingHours: {
     thu: {
@@ -101,204 +110,246 @@ const restaurant = {
       close: 24,
     },
   },
-  order: function (starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
-  // Added after The Spread Operator (...) Lecture
-  orderDelivery: function ({ starterIndex = 1, mainIndex = 0, time = '20:00', address }) {
-    console.log(
-      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
-    );
-  },
-  // added after Rest Pattern and Parameters Lecture
-  orderPizza: function (mainIngredient, ...otherIngredients) {
-    console.log(mainIngredient);
-    console.log(otherIngredients);
-  },
 };
-```
-```js
-///////////////////////////////////////
-// Destructuring Objects
-restaurant.orderDelivery({
-  time: '22:30',
-  address: 'Via del Sole, 21',
-  mainIndex: 2,
-  starterIndex: 2,
-});
-
-restaurant.orderDelivery({
-  address: 'Via del Sole, 21',
-  starterIndex: 1,
-});
-
-const { name, openingHours, categories } = restaurant;
-console.log(name, openingHours, categories);
-
-const {
-  name: restaurantName,
-  openingHours: hours,
-  categories: tags,
-} = restaurant;
-console.log(restaurantName, hours, tags);
-
-// Default values
-const { menu = [], starterMenu: starters = [] } = restaurant;
-console.log(menu, starters);
-
-// Mutating variables
-let a = 111;
-let b = 999;
-const obj = { a: 23, b: 7, c: 14 };
-({ a, b } = obj);
-console.log(a, b);
-
-// Nested objects
-const {
-  fri: { open: o, close: c },
-} = openingHours;
-console.log(o, c);
 
 
-///////////////////////////////////////
-// Destructuring Arrays
-const arr = [2, 3, 4];
-const a = arr[0];
-const b = arr[1];
-const c = arr[2];
+// The variables names should exactly match the property names that we want to retrieve from the object
+// Unlike destructuring in arrays, we do not need to specify all the properties
+// and the properties can also be specified out-of-order.
+// Just like arrays, this now creates 3 new variables
+const {name, openingHours, categories} = restaurant;
+console.log(name, openingHours, categories); // Prints the values from the restaurant object
 
-const [x, y, z] = arr;
-console.log(x, y, z);
-console.log(arr);
+// We can also change the variable names to be different from the property names
+const {name: restaurantName, openingHours: workingHours, categories: tags} = restaurant;
+console.log(restaurantName, workingHours, tags);
 
-let [main, , secondary] = restaurant.categories;
-console.log(main, secondary);
+// Using Default Values
 
-// Switching variables
-// const temp = main;
-// main = secondary;
-// secondary = temp;
-// console.log(main, secondary);
+// We can also have default values in case the property that we are trying to read does not exist on an object
+// The point we are trying to make here is that:
+// If a property does not exist on an object, then we would get 'undefined' as is the case when defining a variable named 'menu'
+// However, if a property is not defined, and we have assigned a default value to it, the variable will take the default value instead
+// as is the case with the variable 'originalMenu'
+// 'starterMenu' is a valid field on the object, and we are changing it's variable name to 'starters'. Hence the default value will not be taken.
+const {menu, originalMenu = [], starterMenu: starters = []} = restaurant;
+console.log(menu, originalMenu, starters); // Prints: undefined, [], ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad']
 
-[main, secondary] = [secondary, main];
-console.log(main, secondary);
+// Mutating Variables
 
-// Receive 2 return values from a function
-const [starter, mainCourse] = restaurant.order(2, 0);
-console.log(starter, mainCourse);
+// Consider the following example
+let amt1 = 100;
+let amt2 = 200;
+const myObject = {amt1: 1, amt2: 2};
 
-// Nested destructuring
-const nested = [2, 4, [5, 6]];
-// const [i, , j] = nested;
-const [i, , [j, k]] = nested;
-console.log(i, j, k);
+// Now if we try to mutate the variables amt1 and amt2, we will get an error
+// {amt1, amt2} = myObject;
+// Hence, instead, we have to do this:
+({amt1, amt2} = myObject);
+console.log(amt1, amt2); // Prints: 1 2
 
-// Default values
-const [p = 1, q = 1, r = 1] = [8, 9];
-console.log(p, q, r);
+// Dealing with Nested Objects
 
+// Consider the following object
+const {fri} = workingHours;
+console.log(fri); // Prints: {open: 11, close: 23}
+// Now what is we wanted to destructure the object in one line. We will make use of nested objects.
+const {fri: {open, close}} = workingHours;
+console.log(open, close); // Prints: 11 23
+
+// An application of destructuring objects is when passing in parameters to functions.
+// In JS, you can have many parameters being passed into a function, which can make it prone to errors if you miss a parameter
+// or change the order of teh parameters or something.
+// What you can do instead is box the parameters into an object, that way you can use only the parameters that you need
+// and also not mess up the code in case the order changes
+
+// Consider this function
+const printPersonDetails = function (name, dob, birthPlace, job, hobbies) {
+  console.log(`Hi ${name}, as per our details you are born in ${birthPlace} and have a job as a ${job}.`);
+}
+
+// Instead you could pass in an object
+const printPersonDetailsUsingObj = function (person) {
+  console.log(`Hi ${person.name}, as per our details you are born in ${person.birthPlace} and have a job as a ${person.job}.`);
+}
+
+// And then you can destructure the object right in the function call itself
+const printPersonDetailsUsingDestrObj = function ({name, dob, birthPlace, job, hobbies}) {
+  console.log(`Hi ${name}, as per our details you are born in ${birthPlace} and have a job as a ${job}.`);
+}
+
+// We can also specify default values in case the properties are not present in the object being passed in
+const printPersonDetailsUsingDestrObjAndDefaults = function ({name, dob = '1/1/2020', birthPlace, job, hobbies}) {
+  console.log(`Hi ${name}, as per our details you are born in ${birthPlace} and have a job as a ${job}.`);
+}
+const alice = {
+  name: 'Alice',
+  dob: '1/1/1990',
+  birthPlace: 'New York',
+  job: 'Teacher',
+  hobbies: ['rock climbing', 'pottery']
+}
+
+printPersonDetailsUsingObj(alice);
+printPersonDetailsUsingDestrObj(alice);
 ```
 ## The Spread Operator (...)
+- We can use the spread operator to unpack an entire array or objects at once.
 ```js
 ///////////////////////////////////////
 // The Spread Operator (...)
 
-const arr = [7, 8, 9];
-const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
-console.log(badNewArr); // output: [1,2,7,8,9]
+// Suppose we have an existing array, and using that we want to create a new array
+const myArray1 = [5,6,7,8];
+// The new array is supposed to contain all the numbers from 1 to 8
+// We can do this. Also, take note that myArray2 is a new array.(Signified by the use of [] operator to create a new array)
+const myArray2 = [1,2,3,4, ...myArray1];
+console.log(myArray2); // Prints: [1, 2, 3, 4, 5, 6, 7, 8]
+// Note that doing:
+const myArray3 = [1,2,3,4,myArray1];
+// would have given us nested array. That is not what we want.
+console.log(myArray2); // Prints: [1, 2, 3, 4, [5, 6, 7, 8]]
 
-const newArr = [1, 2, ...arr];
-console.log(newArr); // output: [1,2,7,8,9]
+// A second use of the spread operator is to pass multiple arguments to a function.
+// For example, in console.log, we can pass in the individual elements of the array
+console.log(...myArray2); // Prints: 1 2 3 4 5 6 7 8
 
-console.log(...newArr); // output: 1,2,7,8,9 
-console.log(1, 2, 7, 8, 9); // output: 1,2,7,8,9
+// Two use cases of the spread operator are:
+// 1) Create shallow copies of arrays
+// 2) Merge two or more arrays
 
-const newMenu = [...restaurant.mainMenu, 'Gnocci'];
-console.log(newMenu); // output: ['Pizza', 'Pasta', 'Risotto', 'Gnocci']
+// 1) Create shallow copies of arrays
+const myArrayCopy = [...myArray2];
+console.log(myArrayCopy); // Prints: [1, 2, 3, 4, 5, 6, 7, 8]
 
-// Copy array
-const mainMenuCopy = [...restaurant.mainMenu];
+// 2) Merge two or more arrays
+const myArray4 = [9, 10];
+const mergedArray = [...myArray2, ...myArray4];
+console.log(mergedArray); // Prints: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-// Join 2 arrays
-const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-console.log(menu);
+// Note that the spread operator does not only work on arrays, instead it works on all iterables.
+// Iterables are: arrays, strings, maps, sets. But NOT Objects.
 
-// Iterables: arrays, strings, maps, sets. NOT objects
-const str = 'Jonas';
-const letters = [...str, ' ', 'S.'];
-console.log(letters); // output: ['J', 'o', 'n', 'a', 's', ' ', 'S.']
-console.log(...str); // output: J o n a s
-// console.log(`${...str} Schmedtmann`); // error - this will not work
+// Since strings are also iterables, we can also use the spread operator with strings
+const firstName = 'Alice';
+const charsOfName = [...firstName];
+console.log(charsOfName); // Prints: ["A", "l", "i", "c", "e"]
 
-// Real-world example
-const ingredients = [
-  // prompt("Let's make pasta! Ingredient 1?"),
-  // prompt('Ingredient 2?'),
-  // prompt('Ingredient 3'),
-];
-console.log(ingredients);
+// We can also use the spread operator in order to pass multiple args to a function
+const cookFood = function (ing1, ing2, ing3) {
+  console.log(`Your meal containing ${ing1}, ${ing2}, and ${ing3} is ready`);
+}
 
-restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
-restaurant.orderPasta(...ingredients);
+const ingredients = ['Potatoes', 'Onions', 'Bread'];
+// And now, instead of passing in each of the ingredients like ingredients[0], ingredients[1], ingredients[2], we do this:
+cookFood(...ingredients); // Prints: Your meal containing Potatoes, Onions, and Bread is ready
 
-// Objects
-const newRestaurant = { foundedIn: 1998, ...restaurant, founder: 'Guiseppe' };
-console.log(newRestaurant);
+// But now, you can also use the spread operator to perform shallow copy of objects
+const bob = {
+  name: 'Bob',
+  dob: '1/1/1990',
+  birthPlace: 'New York',
+  job: 'Teacher',
+  hobbies: ['rock climbing', 'pottery']
+};
 
-const restaurantCopy = { ...restaurant };
-restaurantCopy.name = 'Ristorante Roma';
-console.log(restaurantCopy.name);
-console.log(restaurant.name);
+// Adding properties to objects using the spread operator
+const bobAdd = {
+  favFood: 'Ramen',
+  ...bob,
+  favDrink: 'Kombucha'
+};
+console.log(bobAdd); // Prints: {favFood: "Ramen", name: "Bob", dob: "1/1/1990", birthPlace: "New York", job: "Teacher, ...}
+
+// Shallow copy of objects
+const bobClone = {...bobAdd};
+console.log(bobClone); // Prints: {favFood: "Ramen", name: "Bob", dob: "1/1/1990", birthPlace: "New York", job: "Teacher, ...}
 ```
 - Spread operator takes all the elements from the array and it also doesn't create new variables. And as a consequence, we can only use it in places where we would otherwise write values separated by commas.
 - two important use cases of the spread operator are which is to create shallow copies of arrays, and to merge two arrays together.
 - So basically, most of the built-in data structures in JavaScript are now iterables, but except objects.
 
 ## Rest Pattern and Parameters
+- The Rest pattern is, in a way, the 'opposite' of the spread operator. It uses the same operator, but to condense multiple values into an array.
 
 ```js
-///////////////////////////////////////
-// Rest Pattern and Parameters
-// 1) Destructuring
+// Just like the Spread operator, the Rest pattern also have two distinct uses.
 
-// SPREAD, because on RIGHT side of =
-const arr = [1, 2, ...[3, 4]];
+// 1) Uses it as destructuring
 
-// REST, because on LEFT side of =
-const [a, b, ...others] = [1, 2, 3, 4, 5];
-console.log(a, b, others); // output: 1, 2, [3, 4, 5]
+// We have seen the use of the spread operator on the RHS of the = operator
+const anotherArray1 = [1,2,...[3,4,5]];
+// Now suppose if we wanted to save the first and second elements of the array in variables of their own,
+// but for the remaining values, we wanted to group them into one single array.
+// This is how we would do it.
+// This is the REST syntax, because it is on the left side of the = operator
+const [v1, v2, ...arr1] = anotherArray1;
+console.log(v1, v2, arr1); // Prints: 1 2 [3,4,5]
 
-const [pizza, , risotto, ...otherFood] = [
-  ...restaurant.mainMenu,
-  ...restaurant.starterMenu,
-];
-console.log(pizza, risotto, otherFood); // does not include the skipped values
-
-// Objects
-const { sat, ...weekdays } = restaurant.openingHours;
-console.log(weekdays);
-
-// 2) Functions
-const add = function (...numbers) {
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i++) sum += numbers[i];
-  console.log(sum);
+// Similarly we can also use the spread operator with objects
+const charlie = {
+  name: 'Charlie',
+  dob: '1/1/1990',
+  birthPlace: 'New York',
+  job: 'Teacher',
+  hobbies: ['rock climbing', 'pottery']
 };
+// Suppose we wanted to extract the 'hobbies' and store it into a separate variable
+const { hobbies, ...otherDetailsAboutCharlie} = charlie;
+console.log(hobbies); // Prints: ["rock climbing", "pottery"]
+// Note that otherDetailsAboutCharlie no longer contains the hobbies
+console.log(otherDetailsAboutCharlie); // Prints: {name: "Charlie", dob: "1/1/1990", birthPlace: "New York", job: "Teacher"}
 
-add(2, 3);
-add(5, 3, 7, 2);
-add(8, 2, 5, 3, 2, 1, 4);
+// 2) Use it with Function arguments
 
-const x = [23, 5, 7];
-add(...x);
+// The Rest operator in this case collects all of the multiple inputs and passes it in as an array.
+// So, in effect, this function can accept any number of parameters
+const addMultipleNumbers = function (...numbers) {
+  console.log(`Args is: ${numbers} of type ${typeof numbers}`);
+  let sum = 0;
+  for (let i = 0; i< numbers.length; i++) {
+    sum += numbers[i];
+  }
+  console.log(`The final sum is ${sum}`);
+}
 
-restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
-restaurant.orderPizza('mushrooms');
+// Calling the addMultipleNumbers functions with multiple args
+addMultipleNumbers(1,2);
+addMultipleNumbers(1,2,3,4,);
+addMultipleNumbers(1,2,3,4,5);
 
+// Calling the addMultipleNumbers functions with arrays.
+// Note how we have an array give, we are destructuring it by using the spread operator, then passing it into the fn
+// where the function is then collecting it as a single array and then summing it over.
+const arraysAsArgs = [1,2,3,4,5,6];
+addMultipleNumbers(...arraysAsArgs);
+// This does not work if you do just this.
+// I think what happens is that since in the function definition you are using the ... operator
+// and you are passing in an array as an args, it is expecting an array of arrays as an input?
+addMultipleNumbers(arraysAsArgs);
+
+// Another example using the Rest parameters
+
+// Consider the following function:
+const orderFood = function (mainIngredient, ...otherIngredients) {
+  console.log(mainIngredient); // Prints: flour
+  console.log(otherIngredients); // Prints: ["oil", "butter"]
+}
+
+let ingred1 = 'flour';
+let ingred2 = 'oil';
+let ingred3 = 'butter';
+orderFood(ingred1, ingred2, ingred3);
 ```
 - So the spread operator is used where we would otherwise write values, separated by a comma. On the other hand the rest is pattern is basically used where we would otherwise write variable names separated by commas.
 
 ## Short Circuiting (&& and Il)
+- The `&&` and `||` operators work very differently in JS when compared to Java.
+- Boolean operators can use any datatype as its operands, they can return any datatype, and they do short-circuiting.
+- The OR operator `(||)` will return the first 'truthy' value among all of its operands or the last value if all of them are 'falsy'.
+- The AND operator `(&&)` will return the first 'falsy' value among all of it's operands or return the last value if all of them are 'truthy'.
+- We can use the `OR` operator to set default values.
+- We can use the `AND` operator to execute code in the second operand if the first operand is true.
 
 ```js
 ///////////////////////////////////////
@@ -445,151 +496,331 @@ team1 > team2 && console.log('Team 2 is more likely to win');
 ```
 
 ## Looping Arrays: The for-of Loop
+- This is how we can use the new for-of loop in JS.
 
 ```js
-///////////////////////////////////////
-// The for-of Loop
-const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+const eve = {
+  name: 'Eve',
+  dob: '1/1/1990',
+  birthPlace: 'New York',
+  job: 'Teacher',
+  hobbies: ['rock climbing', 'pottery'],
+  friends: ['Alice', 'Bob', 'Charlie', 'Dave', 'Felicia']
+};
 
-for (const item of menu) console.log(item);
-
-for (const [i, el] of menu.entries()) {
-  console.log(`${i + 1}: ${el}`);
+// Suppose we want to iterate over the friends property of eve
+// We can do it without having to use a counter and incrementing it
+// One important point is that in case of the for-of loop, the 'continue' and the 'break' keywords will work
+// We will look at some other ways of looping in an array in which they won't. So it is an imp distinction to make
+for (const friend of eve.friends) {
+  console.log(`${friend}`); // Prints the list of friends
 }
+// Note that in the above example, we cannot access the index that we are in the array currently
+// We can access the current index as well - like this:
+for (const friend of eve.friends.entries()) {
+  console.log(friend);
+}
+// Prints:
+/*
+[0, "Alice"]
+[1, "Bob"]
+[2, "Charlie"]
+and so on... The point being that the index of the element is printed along with the element as an array with two elements
+*/
 
-// console.log([...menu.entries()]);
+// So you can access the element along with the index using:
+// Note here how we are using the destructuring operator
+for (const [idx, elm] of eve.friends.entries()) {
+  console.log(`Friend ${idx}: ${elm}`);
+}
+// Prints:
+/*
+Friend 0: Alice
+Friend 1: Bob
+Friend 2: Charlie
+and so on...
+*/
 ```
 ## Enhanced Object Literals
+- An object literal is when you create a new object by using the {} operator. ES6 introduced 3 new ways in which we can make writing object literals easier.
+
 ```js
-const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-const openingHours = {
-  [weekdays[3]]: {
-    open: 12,
-    close: 22,
+// Instead of writing properties explicitly in the object, we can create objects outside the object and then refer to it
+let friends = {
+  alice: {
+    name: 'Alice Doe',
+    phone: '111-111-1111'
   },
-  [weekdays[4]]: {
-    open: 11,
-    close: 23,
+  bob: {
+    name: 'Bob Doe',
+    phone: '222-222-2222'
   },
-  [weekdays[5]]: {
-    open: 0, // Open 24 hours
-    close: 24,
+  charlie: {
+    name: 'Charlie Doe',
+    phone: '333-333-3333'
   },
+}
+
+// 1st Addition:
+// And now we are referencing the object
+const felicia = {
+  name: 'Felicia',
+  dob: '1/1/1990',
+  birthPlace: 'New York',
+  job: 'Teacher',
+  hobbies: ['rock climbing', 'pottery'],
+  friendsList: friends
 };
 
-const restaurant = {
-  name: 'Classico Italiano',
-  location: 'Via Angelo Tavanti 23, Firenze, Italy',
-  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-
-  // ES6 enhanced object literals
-  openingHours,
-
-  order(starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
-
-  orderDelivery({ starterIndex = 1, mainIndex = 0, time = '20:00', address }) {
-    console.log(
-      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
-    );
-  },
-
-  orderPasta(ing1, ing2, ing3) {
-    console.log(
-      `Here is your declicious pasta with ${ing1}, ${ing2} and ${ing3}`
-    );
-  },
-
-  orderPizza(mainIngredient, ...otherIngredients) {
-    console.log(mainIngredient);
-    console.log(otherIngredients);
-  },
+// No need for creating an additional property. Just writing 'friends' will add a new property to the object with the same name as 'friends'
+const george = {
+  name: 'George',
+  dob: '1/1/1990',
+  birthPlace: 'New York',
+  job: 'Teacher',
+  hobbies: ['rock climbing', 'pottery'],
+  friends
 };
+
+
+// 2nd Addition:
+// We can now write methods in objects in a shorter way
+const hannah = {
+  name: 'Hannah',
+  dob: '1/1/1990',
+  birthPlace: 'New York',
+  job: 'Teacher',
+  hobbies: ['rock climbing', 'pottery'],
+  friends,
+
+  // Older way of writing methods
+  printFriends: function() {
+    for (const friend of this.friends) {
+      console.log(friend);
+    }
+  },
+
+  // Newer, shorter way of writing methods:
+  printFriendsNew() {
+    for (const friend of this.friends) {
+      console.log(friend);
+    }
+  }
+};
+
+// 3rd Addition
+// Instead of just writing the property names, we can now even compute the property names
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+const ila = {
+  workingHours: {
+    // Note how we are specifying the property names in []. We discussed this way back.
+    [days[0]]: {
+      leave: '8:00am',
+      arrive: '3:00pm'
+    },
+    [days[1]]: {
+      leave: '8:00am',
+      arrive: '4:00pm'
+    },
+    // We can also compute the property names
+    [`${'w' + 'e' + 'd'}`] : {
+      leave: '8:00am',
+      arrive: '5:00pm'
+    }
+  }
+}
+
+console.log(ila.workingHours.mon); // Prints: {leave: "8:00am", arrive: "3:00pm"}
+console.log(ila.workingHours.tue); // Prints: {leave: "8:00am", arrive: "4:00pm"}
+console.log(ila.workingHours.wed); // Prints: {leave: "8:00am", arrive: "5:00pm"}
 ```
 ## Optional Chaining (?.)
+- The Optional Chaining operator  `?.`  is used to check if variable *immediately* preceding the operator exists or not. By 'exists' we mean the nullish concept and not the truthy/false concept. A value is nullish only if it is either `null` or `undefined`. If the variable preceding the operator is nullish, then the execution of the statement will immediately return with the value of `undefined`. Else, the execution will proceed as normal.
 
 ```js
-///////////////////////////////////////
-// Optional Chaining
-if (restaurant.openingHours && restaurant.openingHours.mon)
-  console.log(restaurant.openingHours.mon.open); // output: undefined
+const jake = {
+  workingHours: {
+    mon: {
+      leave: '8:00am',
+      arrive: '3:00pm'
+    },
+    tue: {
+      leave: '8:00am',
+      arrive: '4:00pm'
+    },
+    wed : {
+      leave: '8:00am',
+      arrive: '5:00pm'
+    }
+  },
 
-// console.log(restaurant.openingHours.mon.open);
+  printWorkingHoursFor(day) {
+    // console.log(`${this.workingHours}`)
+    return `Leave at ${this.workingHours[day].leave} and arrive at ${this.workingHours[day].arrive}`;
+  }
+};
 
-// WITH optional chaining
-console.log(restaurant.openingHours.mon?.open);
-console.log(restaurant.openingHours?.mon?.open);
+// Suppose we were trying to find the working hours of jake on friday. There is no property called 'fri' on the jake object
+console.log(jake.workingHours.fri); // Prints: undefined
+// But suppose we did not know that, and tried to access the 'leave' property on 'fri'
+// console.log(jake.workingHours.fri.leave); // Uncaught TypeError: Cannot read property 'leave' of undefined
+// So we would like to have a null check for the 'jake.workingHours.fri' property before we access any properties on it
 
-// Example
-const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+// We could do that by enclosing it in an if-block or in the && operator
+if (jake.workingHours.fri) {
+  console.log(jake.workingHours.fri.leave);
+}
+// or:
+jake.workingHours.fri && console.log(jake.workingHours.fri.leave);
 
-for (const day of days) {
-  const open = restaurant.openingHours[day]?.open ?? 'closed';
-  console.log(`On ${day}, we open at ${open}`);
-} 
-// output: 
-// On mon, we open at closed 
-// On Tue, open closed 
-// On wed, we open at closed 
-// On thu, we open at 12 
-// On fri, we open at 11
-// On sat, we open at 0 
-// On sun, we open at closed
+// But in ES6, we can use the optional chaining operator.
+// Only if the property specified just before the ? exists, only then will the next property will be accessed.
+// If not, then immediately 'undefined' will be returned.
+// Here 'exists' means the 'Nullish' concept that we talked about before. So the 'leave' property will be accessed
+// only if the 'fri' property is either null or undefined. Not if it is empty, or 0, or any other such falsy values
+console.log(jake.workingHours.fri?.leave); // undefined
 
-// Methods
-console.log(restaurant.order?.(0, 1) ?? 'Method does not exist'); // output: ['Focaccia', 'Pasta']
+// Consider the following example
+const daysOfWeek = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+for (const day of daysOfWeek) {
+  // Note how we are dynamically using the 'day' variable to specify the property name on the object.
+  // If we want to use a variable name as the property name, then we have to use the [] notation.
+  // and then using the optional chaining operator to access the 'leave' property on the object only if the object
+  // jake.workingHours.day is not null
+  console.log(`Work starts at ${jake.workingHours[day]?.leave}`);
+}
+// Prints:
+/*
+Work starts at 8:00am
+Work starts at 8:00am
+Work starts at 8:00am
+Work starts at undefined
+Work starts at undefined
+Work starts at undefined
+Work starts at undefined
+ */
 
-console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exist'); // output: Method does not exist
+// 2)
+// Optional Chaining also works on methods - we can check if a method actually exists before we call it
 
-// Arrays
-const users = [{ name: 'Jonas', email: 'hello@jonas.io' }];
-// const users = [];
+// In this line we are first checking if the printWorkingHoursFor method is defined on the jake object.
+// If it is not defined, then we print 'Method does not exist' using the Null Coalescing Operator
+console.log(jake.printWorkingHoursFor?.('tue') ?? 'Method does not exist'); // Prints: 'Leave at 8:00am and arrive at 4:00pm'
+console.log(jake.printWorkingHours?.('tue') ?? 'Method does not exist'); // Prints: 'Method does not exist'
 
-console.log(users[0]?.name ?? 'User array empty'); // output: Jonas
 
-if (users.length > 0) console.log(users[0].name);
-else console.log('user array empty'); // output: Jonas
+// 3)
+// Optional Chaining also works on Arrays
+const users = [{name: 'Alice', email:'alice@e.com'}];
+// Remember that the ?. operator tests if the object immediately preceding the operator exists or not
+// And by exist we again mean the nullish concept, and not the falsy-truthy concept
+// So here, it will check if the users[0] exists
+console.log(users[0]?.name ?? 'Array is empty'); // Prints: 'Alice'
+console.log(users[1]?.name ?? 'Array is empty'); // Prints: 'Array is empty'
 ```
 ## Looping Objects: Object Keys, Values, and Entries
+- We can use the for-of operator to loop through either the keys, values, or both keys and values of an object.
 
 ```js
-///////////////////////////////////////
-// Looping Objects: Object Keys, Values, and Entries
+// Previously we used the for-of loop to loop over arrays, and we said that only iterables can be looped over using the for-of loop
+// But we can also use the for-of loop to loop over objects
 
-// Property NAMES
-const properties = Object.keys(openingHours);
-console.log(properties); // output:  ['thu', 'fri', 'sat']
+const kristin = {
+  workingHours: {
+    mon: {
+      leave: '8:00am',
+      arrive: '3:00pm'
+    },
+    tue: {
+      leave: '8:00am',
+      arrive: '4:00pm'
+    },
+    wed : {
+      leave: '8:00am',
+      arrive: '5:00pm'
+    },
+    thu : {
+      leave: '8:00am',
+      arrive: '5:00pm'
+    }
+  },
 
-let openStr = `We are open on ${properties.length} days: `;
-for (const day of properties) {
-  openStr += `${day}, `;
+  printWorkingHoursFor(day) {
+    // console.log(`${this.workingHours}`)
+    return `Leave at ${this.workingHours[day].leave} and arrive at ${this.workingHours[day].arrive}`;
+  }
+};
+
+// There are three use cases - we can either loop over the keys (property names), or the values in the object, or both keys and values together
+
+// 1) Loop over the keys (property names)
+for (const day of Object.keys(kristin.workingHours)) {
+  console.log(day);
 }
-console.log(openStr); // output: We are open on 3 days: thu, fri, sat, 
+/*
+  Prints:
+  mon
+  tue
+  wed
+  thu
+ */
 
-// Property VALUES
-const values = Object.values(openingHours);
-console.log(values);
+// So what is exactly going on?
+// As you can see, Object.keys prints an array containing the keys of the object. Then we are just looping over the array
+// It only creates an array from the top level properties, does not pick up nested properties of the object passed in as an arg
+const keysInTheObject = Object.keys(kristin.workingHours);
+console.log(keysInTheObject); // Prints: ["mon", "tue", "wed", "thu"]
 
-// output:
-// 0: {open: 12, close: 22}
-// 1: {open: 11, close: 23}
-// 2: {open: 0, close: 24}
+// 2) Loop over the values
 
-// Entire object
-const entries = Object.entries(openingHours);
-// console.log(entries);
+const valuesInTheObject = Object.values(kristin.workingHours);
+console.log(valuesInTheObject);
+// We get an array of 4 objects
+/*
+0: {leave: "8:00am", arrive: "3:00pm"}
+1: {leave: "8:00am", arrive: "4:00pm"}
+2: {leave: "8:00am", arrive: "5:00pm"}
+3: {leave: "8:00am", arrive: "5:00pm"}
+*/
 
-// [key, value]
-for (const [day, { open, close }] of entries) {
-  console.log(`On ${day} we open at ${open} and close at ${close}`);
+// Similar to the previous case, we can log the values now
+for (const {leave, arrive} of Object.values(kristin.workingHours)) {
+  console.log(`Kristin leaves at ${leave} and arrives at ${arrive}`);
 }
-// output: 
-// On thu we open at 12 and close at 22
-// On fri we open at 11 and close at 23
-// On sat we open at 0 and close at 24
+/*
+Prints:
+Kristin leaves at 8:00am and arrives at 3:00pm
+Kristin leaves at 8:00am and arrives at 4:00pm
+Kristin leaves at 8:00am and arrives at 5:00pm
+Kristin leaves at 8:00am and arrives at 5:00pm
+*/
+
+// 3) Loop over the both property names and the values - so basically entries
+const entriesInTheObject = Object.entries(kristin.workingHours);
+console.log(entriesInTheObject);
+/*
+Note that this is an array
+[Array(2), Array(2), Array(2), Array(2)]
+[["mon", {…}], ["tue", {…}], ["wed", {…}], ["thu", {…}]]
+Prints:
+  0: (2) ["mon", {…}]
+  1: (2) ["tue", {…}]
+  2: (2) ["wed", {…}]
+  3: (2) ["thu", {…}]
+ */
+
+// And we can loop over the entries in the object like this:
+// Note the way that we are destructuring the object. The outermost is an array notation [], and not object notation {}
+for (const [day, {leave, arrive}] of Object.entries(kristin.workingHours)) {
+  console.log(`On ${day}, Kristin leaves at ${leave} and arrives at ${arrive}`);
+}
+/*
+Prints:
+On mon, Kristin leaves at 8:00am and arrives at 3:00pm
+On tue, Kristin leaves at 8:00am and arrives at 4:00pm
+On wed, Kristin leaves at 8:00am and arrives at 5:00pm
+On thu, Kristin leaves at 8:00am and arrives at 5:00pm
+ */
 ```
 
 ## Coding Challenge ##2
@@ -686,133 +917,287 @@ for (const player of game.scored) {
 ```
 
 ## Sets
+- In ES6, two new datastructures were added to JS - Sets and Maps.
+- A set is a collection of unique values - there can be no duplicate elements in a set. Hence, sets are often used to remove duplicate elements from an array.
+- A set can hold mixed datatypes.
+- In the args for the constructor of the set, we can pass in any kind of iterable. Since an array is an iterable, it works. Similarly, if you pass in a single string, that would work as well. The resulting set that would be created would contain the unique characters that are present in the string.
 ```js
-///////////////////////////////////////
-// Sets
-const ordersSet = new Set([
-  'Pasta',
-  'Pizza',
-  'Pizza',
-  'Risotto',
-  'Pasta',
-  'Pizza',
-]);
+const foodItemsArr = ['Pizza', 'Pasta', 'Pork', 'Pasta', 'Plums'];
+const foodItemsSet = new Set(foodItemsArr);
+console.log(foodItemsSet); // Prints: {"Pizza", "Pasta", "Pork", "Plums"}
 
-console.log(ordersSet); // output: Set(3) {'Pasta', 'Pizza', 'Risotto'}
+// Just like arrays, sets are also iterables
+// Remember that strings are also iterables, hence we can also create a set of characters by using a string
+const charsInPizza = new Set('Pizza');
+console.log(charsInPizza); // Prints: {"P", "i", "z", "a"}
 
-console.log(new Set('Jonas')); // output: Set(5) {'J', 'o', 'n', 'a', 's'}
+// Prints the size of the array
+console.log(charsInPizza.size); // Prints: 4
 
-console.log(ordersSet.size); // output: 3
-console.log(ordersSet.has('Pizza')); // output: true
-console.log(ordersSet.has('Bread')); // output: false
-ordersSet.add('Garlic Bread'); // output: Set(4) {'Pasta', 'Pizza', 'Risotto', 'Garlic Bread'}
-ordersSet.add('Garlic Bread'); // output: // output: Set(4) {'Pasta', 'Pizza', 'Risotto', 'Garlic Bread'}
-ordersSet.delete('Risotto'); // output: Set(3) {'Pasta', 'Pizza', 'Garlic Bread'}
-// ordersSet.clear(); // output: deletes all elements of set
-console.log(ordersSet); 
+// Check if an element exists in a set
+console.log(charsInPizza.has('P')); // Prints: true
+console.log(charsInPizza.has('Q')); // Prints: false
 
-for (const order of ordersSet) console.log(order); // output: Pasta Pizza Garlic Bread
+// We can add elements to a set
+foodItemsSet.add('Peas');
+console.log(foodItemsSet); // Prints: {"Pizza", "Pasta", "Pork", "Plums", "Peas"}
 
-// Example
-const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
-const staffUnique = [...new Set(staff)];
-console.log(staffUnique); // output: ['Waiter', 'Chef', 'Manager']
+// We can remove elements from a set
+foodItemsSet.delete('Plums');
+console.log(foodItemsSet); // Prints: {"Pizza", "Pasta", "Pork", "Peas"}
 
-console.log(
-  new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
-); // output: 3
+// Delete all the elements from a set
+charsInPizza.clear();
+console.log(charsInPizza); // Prints: {}
 
-console.log(new Set('jonasschmedtmann').size); // output: 11
+// Since sets are iterable, we can iterate over a set as well
+for (const item of foodItemsSet) {
+  console.log(item);
+}
+/*
+  Prints:
+  Pizza
+  Pasta
+  Pork
+  Peas
+*/
+
+// Sets can be used to remove duplicate elements from an array
+const groceryList = ['Pizza', 'Pasta', 'Pork', 'Pasta', 'Plums'];
+// Now we want to remove the duplicate items from the groceryList
+// In the args for the constructur of the set, we pass in any kind of iterable. Since an array is an iterable, it works.
+const uniqueItemsInList = new Set(groceryList);
+// And now we can store it back into an array.
+// Since the spread operator can take in any iterable as an arg, we can simply do this
+const groceryListUnique = [...uniqueItemsInList];
+console.log(groceryListUnique); // Prints: ["Pizza", "Pasta", "Pork", "Plums"]
+
+// You could just do the entire thing in one line
+const uniqueItemsAgain = [...new Set(groceryList)];
+console.log(uniqueItemsAgain); // Prints: ["Pizza", "Pasta", "Pork", "Plums"]
+
 ```
-- And a set is basically just a collection of unique values. So that means that a set can never have any. duplicates.
 
 ## Maps: Fundamentals
+- Just like an object, the data in a map is stored as key-value pairs. The difference between the two is that in the case of maps, the keys can have any type, whereas in the case of objects, the keys have to be strings. So maps can have an object, an array, or even another map as a key.
+- Note that the insertion order is maintained in maps in JS as mentioned [here on SO](https://stackoverflow.com/questions/17696473/how-to-keep-the-sequence-in-javascript-map/50862944#50862944).
 
 ```js
-//////////////////////////////////////
-// Maps: Fundamentals
-const rest = new Map();
-rest.set('name', 'Classico Italiano');
-rest.set(1, 'Firenze, Italy');
-console.log(rest.set(2, 'Lisbon, Portugal')); // output: Map(3) {'name' => 'Classico Italiano', 1 => 'Firenze, Italy', 2 => 'Lisbon, Portugal'}
+const hannah2 = {
+    name: 'Hannah',
+    dob: '1/1/1990',
+    birthPlace: 'New York',
+    job: 'Teacher',
+    hobbies: ['rock climbing', 'pottery'],
+    friends,
 
-rest
-  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
-  .set('open', 11)
-  .set('close', 23)
-  .set(true, 'We are open :D')
-  .set(false, 'We are closed :(');
+    // Older way of writing methods
+    printFriends: function () {
+        for (const friend of this.friends) {
+            console.log(friend);
+        }
+    },
 
-console.log(rest.get('name')); // output: Classico Italiano
-console.log(rest.get(true)); // output: We are open : D
-console.log(rest.get(1)); // output: Firenze, Italy
+    // Newer, shorter way of writing methods:
+    printFriendsNew() {
+        for (const friend of this.friends) {
+            console.log(friend);
+        }
+    }
+};
+// Create a new map
+const laura = new Map();
 
-const time = 8;
-console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
-// output: We are closed :(
+// To add elements to a map, we use the set method
+laura.set('name', 'Laura Doe');
+// We can use different datatypes for keys and values
+laura.set(1, 'Alice');
+laura.set(2, 'Bob');
 
-console.log(rest.has('categories')); // output: true
-rest.delete(2); // output: it will delete - 2, 'Lisbon, Portugal'
-// rest.clear(); // output: deletes whole map
+// Calling the set() method returns the new map. Hence we can chain the set() operations
+laura.set('hobbies', ['rock climbing', 'pottery']).set(3, 'Charlie');
 
-const arr = [1, 2]; // it is important to decalre 'arr' here.
-rest.set(arr, 'Test');
-rest.set(document.querySelector('h1'), 'Heading');
-console.log(rest); 
-console.log(rest.size); // output: 9
+// We can also use boolean values as the key
+laura.set(true, 'Laura is available');
+laura.set(false, 'Laura is Busy');
 
-console.log(rest.get(arr)); // output: Test
+// If we log the map now, we see the details
+console.log(laura);
+
+/*
+Prints:
+    Map(7){"name" => "Laura Doe", 1 => "Alice", 2 => "Bob", "hobbies" => Array(2), "3" => "Charlie",…}
+    [[Entries]]
+    0: {"name" => "Laura Doe"}
+    1: {1 => "Alice"}
+    2: {2 => "Bob"}
+    3: {"hobbies" => Array(2)}
+    4: {3 => "Charlie"}
+    5: {true => "Laura is available"}
+    6: {false => "Laura is Busy"}
+ */
+
+
+// To retrieve elements from the map, we use the get() method
+console.log(laura.get('name')); // Prints: 'Laura Doe'
+console.log(laura.get(true)); // Prints: 'Laura is available'
+// Note that the datatype of the key matters
+// For eg. this will print 'undefined' because there is no key with string 'true'
+console.log(laura.get('true')); // Prints: 'undefined'
+
+// We can also check whether a map has a certain key
+console.log(laura.has('hobbies')); // Prints: true
+console.log(laura.has('friends')); // Prints: false
+
+// We can also delete elements from the mapp by passing in the respective key as the argument
+laura.delete(3);
+console.log(laura);
+/*
+    Prints:
+    0: {"name" => "Laura Doe"}
+    1: {1 => "Alice"}
+    2: {2 => "Bob"}
+    3: {"hobbies" => Array(2)}
+    4: {true => "Laura is available"}
+    5: {false => "Laura is Busy"}
+ */
+
+// We cal also use objects/arrays as map keys
+
+// First let us look at the wrong way of doing it:
+// We are adding a new element
+laura.set([0, 1], 'An Array');
+// And now we try to get the same element
+console.log(laura.get([0, 1])); // Prints: 'undefined'
+// Why? Because recall that objects are stored by their reference.
+// SO you need to store the reference once you have created an array.
+
+// So the correct way of doing it is:
+const arrayKey = [1,2];
+laura.set(arrayKey, 'Another Array');
+console.log(laura.get(arrayKey)); // Prints: 'Another Array'
+
+// Just to visually confirm that the array is in fact being stored as the key
+console.log(laura);
+/*
+0: {"name" => "Laura Doe"}
+1: {1 => "Alice"}
+2: {2 => "Bob"}
+3: {"hobbies" => Array(2)}
+4: {true => "Laura is available"}
+5: {false => "Laura is Busy"}
+6: {Array(2) => "An Array"}
+    key: (2) [0, 1]
+    value: "An Array"
+7: {Array(2) => "Another Array"}
+    key: (2) [1, 2]
+    value: "Another Array"
+ */
+
+
+// You can get the size of a map by doing
+console.log(laura.size); // Prints: 6
+
+// We can remove all the elements from the map
+laura.clear();
+console.log(laura); // Prints: Map(0) {}
+
 ```
 
 ## Maps: Iterataion
+- Instead of using the set method to add elements to a map, you can just add the elements all at once by passing in an array as shown in the example below. This allows us to easily create maps from existing objects.
+- Similarly, we can use existing maps to convert them into arrays by using the spread operator.
 
 ```js
-///////////////////////////////////////
-// Maps: Iteration
-const question = new Map([
-  ['question', 'What is the best programming language in the world?'],
-  [1, 'C'],
-  [2, 'Java'],
-  [3, 'JavaScript'],
-  ['correct', 3],
-  [true, 'Correct 🎉'],
-  [false, 'Try again!'],
+// There are other ways of populating a new map other than using the set() method that we used previously
+const maria = new Map([
+    ['name', 'Maria Doe'],
+    ['friends', ['Alice', 'Bob', 'Charlie']],
+    ['hobbies', ['Stamp Collecting']]
 ]);
-console.log(question);
 
-// Convert object to map
-console.log(Object.entries(openingHours));
-const hoursMap = new Map(Object.entries(openingHours));
-console.log(hoursMap);
+console.log(maria); // Prints: {"name" => "Maria Doe", "friends" => Array(3), "hobbies" => Array(1)}
 
-// Quiz app
-console.log(question.get('question'));
-for (const [key, value] of question) {
-  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+// Note that the constructor for the Map in the above example takes an array of arrays as an arg.
+
+const kristin2 = {
+    workingHours: {
+        mon: {
+            leave: '8:00am',
+            arrive: '3:00pm'
+        },
+        tue: {
+            leave: '8:00am',
+            arrive: '4:00pm'
+        },
+        wed: {
+            leave: '8:00am',
+            arrive: '5:00pm'
+        },
+        thu: {
+            leave: '8:00am',
+            arrive: '5:00pm'
+        }
+    }
+};
+
+// Recall the Object.entries() method that we looked at back in Lecture 113
+const kristinActiveHours = Object.entries(kristin2.workingHours);
+console.log(kristinActiveHours);
+/*
+Prints:
+0: (2) ["mon", {…}]
+1: (2) ["tue", {…}]
+2: (2) ["wed", {…}]
+3: (2) ["thu", {…}]
+ */
+
+// Converting Objects to a Map
+
+// So this gives us an efficient way of converting objects to map
+const kristinHoursMap = new Map(kristinActiveHours);
+console.log(kristinHoursMap);
+/*
+Prints:
+0: {"mon" => Object}
+key: "mon"
+value: {leave: "8:00am", arrive: "3:00pm"}
+1: {"tue" => Object}
+key: "tue"
+value: {leave: "8:00am", arrive: "4:00pm"}
+2: {"wed" => Object}
+key: "wed"
+value: {leave: "8:00am", arrive: "5:00pm"}
+3: {"thu" => Object}
+key: "thu"
+value: {leave: "8:00am", arrive: "5:00pm"}
+ */
+
+// We can iterate over the map by doing
+for (const [day, {leave, arrive}] of kristinHoursMap) {
+    console.log(`On ${day}, Kristin2 leaves at ${leave} and arrives at ${arrive}`);
 }
-// const answer = Number(prompt('Your answer'));
-const answer = 3;
-console.log(answer);
 
-console.log(question.get(question.get('correct') === answer));
+/*
+Prints:
+    On mon, Kristin2 leaves at 8:00am and arrives at 3:00pm
+    On tue, Kristin2 leaves at 8:00am and arrives at 4:00pm
+    On wed, Kristin2 leaves at 8:00am and arrives at 5:00pm
+    On thu, Kristin2 leaves at 8:00am and arrives at 5:00pm
+ */
 
-// Convert map to array
-console.log([...question]);
-// console.log(question.entries());
-console.log([...question.keys()]);
-console.log([...question.values()]);
+
+// Converting Map back to Array
+// By just using the spread operator and unpacking the map into an array -
+console.log([...kristinHoursMap]);
+/*
+0: (2) ["mon", {…}]
+1: (2) ["tue", {…}]
+2: (2) ["wed", {…}]
+3: (2) ["thu", {…}]
+ */
 
 ```
-
-## Summary: Which Data Structure to Use?
-Link -Image
-
-## Arrays vs. Sets
-Link-Image 
-
-## Objects vs. Maps
-Link-Image
-
 ## Coding Challenge ##3
 Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
 
@@ -864,175 +1249,142 @@ for (const [min, event] of gameEvents) {
 }
 ```
 
-## Working With Strings Part 1
+## Working With Strings
 
 ```js
-///////////////////////////////////////
-// Working With Strings - Part 1
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Lecture 120: Working with Strings Part 1
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const airline = 'TAP Air Portugal';
 const plane = 'A320';
 
-console.log(plane[0]); // output: A
-console.log(plane[1]); // output: 3
-console.log(plane[2]); // output: 2
-console.log('B737'[0]); // output:  B
+console.log(plane[0]); // Prints: 'A'
+console.log(plane[1]); // Prints: '3'
+console.log(plane[2]); // Prints: '2'
+console.log('B737'[0]); // Prints: 'B'
 
-console.log(airline.length); // output: 16
-console.log('B737'.length); // output: 4
+console.log(airline.length); // Prints: 16
+console.log('B737'.length); // Prints: 4
 
-console.log(airline.indexOf('r')); // output: 6
-console.log(airline.lastIndexOf('r')); // output: 10
-console.log(airline.indexOf('portugal')); // output: -1
+console.log(airline.indexOf('r')); // Prints: 6
 
-console.log(airline.slice(4)); // output: Air Portugal
-console.log(airline.slice(4, 7)); // output: Air
+// Search from the end of the string
+console.log(airline.lastIndexOf('r')); // Prints: 10
 
-console.log(airline.slice(0, airline.indexOf(' '))); // output: TAP
-console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // output: Portugal
+// Search for the occurrence of the word
+console.log(airline.indexOf('portugal')); // Prints: -1. Because it is case-sensitive and string contains 'Portugal' not 'portugal'
 
-console.log(airline.slice(-2)); // output: al
-console.log(airline.slice(1, -1)); // output: AP Air Portuga 
+// Slice the string starting from index 4 to the end of the string
+console.log(airline.slice(4)); // Prints: 'Air Portugal'
 
-const checkMiddleSeat = function (seat) {
-  // B and E are middle seats
-  const s = seat.slice(-1);
-  if (s === 'B' || s === 'E') console.log('You got the middle seat 😬');
-  else console.log('You got lucky 😎');
-};
+// Slice the string from index 4 included, index 7 excluded
+console.log(airline.slice(4, 7)); // Prints: 'Air'
 
-checkMiddleSeat('11B'); // output: You got the middle seat 😬
-checkMiddleSeat('23C'); // output: You got lucky 😎
-checkMiddleSeat('3E');// output: You got the middle seat 😬
+// Start from the index 0, right up to the first occurrence of the ' '
+console.log(airline.slice(0, airline.indexOf(' '))); // Prints: 'TAP'
 
-console.log(new String('jonas')); // output: String {'jonas'}
-console.log(typeof new String('jonas')); // output: object
+// Start from the index AFTER the last index of ' ', right up to the end of the string
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // Prints: 'Portugal'
 
-console.log(typeof new String('jonas').slice(1)); // output: string
+// Start from the end of the string. Print the first two characters
+console.log(airline.slice(-2)); // Prints: 'al'
 
-```
-- Whenever we call a method on a string, JavaScript will automatically behind the scenes convert that string primitive to a string object with the same content. And then it's on that object where the methods are called. All right and this process is called boxing because it basically takes our string and puts it into a box which is the object.
+// Start from the index 1 print up to the index before the last one
+console.log(airline.slice(1, -1)); // Prints: 'AP Air Portuga'
 
-## Working With Strings Part 2
+// JS internally changes the type of string by boxing and unboxing as required
+console.log(typeof 'JavaScript Strings'); // Prints: string
+console.log(typeof new String('JavaScript Strings')); // Prints: object. Warning: Primitive type object wrapper used
+console.log(typeof String('JavaScript Strings')); // Prints: string
 
-```js
-///////////////////////////////////////
-// Working With Strings - Part 2
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Lecture 121: Working with Strings Part 2
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const airline = 'TAP Air Portugal';
+const anotherAirline = 'TAP Air Portugal';
 
-console.log(airline.toLowerCase()); // output: tap air portugal
-console.log(airline.toUpperCase()); // output: TAP AIR PORTUGAL
-
-// Fix capitalization in name
-const passenger = 'jOnAS'; // Jonas
-const passengerLower = passenger.toLowerCase();
-const passengerCorrect =
-  passengerLower[0].toUpperCase() + passengerLower.slice(1);
-console.log(passengerCorrect); // output: Jonas
+console.log(anotherAirline.toLowerCase());
+console.log(anotherAirline.toUpperCase());
 
 // Comparing emails
 const email = 'hello@jonas.io';
 const loginEmail = '  Hello@Jonas.Io \n';
-
-// const lowerEmail = loginEmail.toLowerCase();
-// const trimmedEmail = lowerEmail.trim();
+// Note that the trim() method will also remove the \n character from the email
 const normalizedEmail = loginEmail.toLowerCase().trim();
-console.log(normalizedEmail); // output: hello@jonas.io
-console.log(email === normalizedEmail); // output: true
+console.log(normalizedEmail);
+console.log(email === normalizedEmail); // Prints: true
 
 // replacing
 const priceGB = '288,97£';
+// replace() calls can also be chained because replace() returns the resulting string
 const priceUS = priceGB.replace('£', '$').replace(',', '.');
-console.log(priceUS); // output: 288.97$
+console.log(priceUS); // Prints: 288.97$
 
-const announcement =
-  'All passengers come to boarding door 23. Boarding door 23!';
+const announcement = 'All passengers come to boarding door 23. Boarding door 23!';
 
-console.log(announcement.replace('door', 'gate')); // output: All passengers come to boarding gate 23. Boarding door 23!
-// console.log(announcement.replaceAll('door', 'gate'));
-console.log(announcement.replace(/door/g, 'gate')); // output: All passengers come to boarding gate 23. Boarding gate 23!
+// Note that the replace() method will replace ONLY the first occurrence of the string
+// Here 'door' is the value to be searched, and 'gate' is the value to be replaced
+console.log(announcement.replace('door', 'gate'));
+// Prints: All passengers come to boarding gate 23. Boarding door 23!
+
+// replaceAll() will replace ALL occurrences of the string
+console.log(announcement.replaceAll('door', 'gate'));
+// Prints: All passengers come to boarding gate 23. Boarding gate 23!
+
+// We can also use regex to replace the string 'door'
+// The string to be searched is placed between / / and g is appended to tell JS to replace everywhere
+console.log(announcement.replace(/door/g, 'gate'));
 
 // Booleans
-const plane = 'Airbus A320neo';
-console.log(plane.includes('A320')); // output: true
-console.log(plane.includes('Boeing')); // output: false
-console.log(plane.startsWith('Airb')); // output: true
+const anotherPlane = 'Airbus A320neo';
+console.log(anotherPlane.includes('A320')); // Prints: true
+console.log(anotherPlane.includes('Boeing')); // Prints: false
+console.log(anotherPlane.startsWith('Airb')); // Prints: true
 
-if (plane.startsWith('Airbus') && plane.endsWith('neo')) {
-  console.log('Part of the NEW ARirbus family'); // output: Part of the NEW ARirbus family
-}
-
-// Practice exercise
-const checkBaggage = function (items) {
-  const baggage = items.toLowerCase();
-
-  if (baggage.includes('knife') || baggage.includes('gun')) {
-    console.log('You are NOT allowed on board');
-  } else {
-    console.log('Welcome aboard!');
-  }
-};
-
-checkBaggage('I have a laptop, some Food and a pocket Knife'); // output: You are NOT allowed on board
-checkBaggage('Socks and camera'); // output: Welcome aboard!
-checkBaggage('Got some snacks and a gun for protection'); // output: You are NOT allowed on board
-
-```
-## Working With Strings Part 3
-```js
-///////////////////////////////////////
-// Working With Strings - Part 2
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Lecture 122: Working with Strings Part 3
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Split and join
-console.log('a+very+nice+string'.split('+')); // output: ['a', 'very', 'nice', 'string']
-console.log('Jonas Schmedtmann'.split(' ')); // output: ['Jonas', 'Schmedtmann']
+console.log('a+very+nice+string'.split('+')); // Prints: ["a", "very", "nice", "string"]
+console.log('Alice Doe'.split(' ')); // Prints: ["Alice", "Doe"]
 
-const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+// We can split and store the results directly using destructuring
+const [fName, lName] = 'Alice Doe'.split(' ');
 
-const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
-console.log(newName); // output: Mr. Jonas SCHMEDTMANN
+// We can join strings:
+const newName = ['Ms.', fName, lName].join(' ');
+console.log(newName); // Prints: Ms. Alice Doe
 
+// Changing the joiner
+const newName2 = ['Ms.', fName, lName].join('_');
+console.log(newName2); // Prints: Ms._Alice_Doe
+
+// Capitalize just the first letter of every word of a name
 const capitalizeName = function (name) {
-  const names = name.split(' ');
-  const namesUpper = [];
-
-  for (const n of names) {
-    // namesUpper.push(n[0].toUpperCase() + n.slice(1));
-    namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
-  }
-  console.log(namesUpper.join(' '));
-}; 
-
-capitalizeName('jessica ann smith davis'); // output: Jessica Ann Smith Davis
-capitalizeName('jonas schmedtmann'); // output: 
+    const splitName = name.toLowerCase().split(' ');
+    const capitalizedNameArr = [];
+    for (const partialName of splitName) {
+        capitalizedNameArr.push(partialName[0].toUpperCase() + partialName.slice(1));
+    }
+    return capitalizedNameArr.join(' ');
+}
+console.log(capitalizeName('jessica ann smith davis')); // Prints: Jessica Ann Smith Davis
 
 // Padding
+// Adding characters to the beginning or the end of the string until the string is of a desired length
 const message = 'Go to gate 23!';
-console.log(message.padStart(20, '+').padEnd(30, '+')); // output: ++++++Go to gate 23!++++++++++
-console.log('Jonas'.padStart(20, '+').padEnd(30, '+')); // output:+++++++++++++++Jonas++++++++++
+console.log(message.padStart(20, '+')); // Prints: ++++++Go to gate 23!
+console.log(message.padEnd(20, '+')); // Prints: Go to gate 23!++++++
 
+// First pad the string on the left to 20, then pad the resultant padded string on the right till 30
+console.log(message.padStart(20, '+').padEnd(30, '-')); // Prints: ++++++Go to gate 23!---------
 
-const maskCreditCard = function (number) {
-  const str = number + '';
-  const last = str.slice(-4);
-  return last.padStart(str.length, '*');
-};
-
-console.log(maskCreditCard(64637836)); // output: ****7836
-console.log(maskCreditCard(43378463864647384)); // output: *************7384
-console.log(maskCreditCard('334859493847755774747')); // output: *****************4747
-
-// Repeat
-const message2 = 'Bad waether... All Departues Delayed... ';
-console.log(message2.repeat(5)); // output: Bad waether... All Departues Delayed... Bad waether... All Departues Delayed... Bad waether... All Departues Delayed... Bad waether... All Departues Delayed... Bad waether... All Departues Delayed... 
-
-const planesInLine = function (n) {
-  console.log(`There are ${n} planes in line ${'🛩'.repeat(n)}`);
-};
-planesInLine(5); // output: There are 5 planes in line 🛩🛩🛩🛩🛩
-planesInLine(3); // output: There are 3 planes in line 🛩🛩🛩
-planesInLine(12); // output: There are 12 planes in line 🛩🛩🛩🛩🛩🛩🛩🛩🛩🛩🛩🛩
-
+// Repeat a string 
+const message2 = 'Bad weather...';
+console.log(message2.repeat(5));
+// Prints: Bad weather...Bad weather...Bad weather...Bad weather...Bad weather...
 ```
 
 ## Coding Challenge ##4
