@@ -58,12 +58,7 @@
 ## Basic Styling with CSS & Introduction to the CSS Box Model
 
  - According to the box model in CSS, each and every element on a web page can be seen as a rectangular box.
- 
-
-
-<p>
-  <img src="Images/BoxModel.png" width="800" />
- </p>
+  
 ![BoxModel](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/BoxModel.png)
   
 - The CSS file corresponding to the HTML in the section above: 
