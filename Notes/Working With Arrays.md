@@ -542,7 +542,7 @@ const userNameArr = accounts.map( account => {
 });
 console.log(userNameArr);  // Prints: ["js", "jd", "stw", "ss"]
 ```
-### The filter Method
+## The filter Method
 - The filter method is used to return a new array that contains only those elements from the original array that have passed a specific condition.
 - Just like the map method, the filter method also accepts a callback function, and just like the callback function in the map method, the callback function in the filter method also accepts three args, namely - currentElement, index, entire array.
 ```js
@@ -554,7 +554,7 @@ console.log(deposits); // Prints: [200, 340, 50, 400]
 // Original array is not modified in any way
 console.log(transactions); // Prints: [200, -200, 340, -300, -20, 50, 400, -460]
 ```
-### The Reduce Method
+## The Reduce Method
 - The `reduce` method is used to compute a single value using all the values in the original array.
 - The callback function that is passed into the `reduce` method is different compared to the ones passed to `map` or `forEach`. In the callback for the `reduce` method, the first parameter is the *accumulator*. This accumulator stores the value that will be finally returned from the `reduce` function. So, for example, if we are using the reduce method to calculate the sum of all the elements in an array, then the *accumulator* would simply return the final sum.
 - The `reduce` method also accepts a second argument which is the starting value of the *accumulator*.
@@ -1279,7 +1279,6 @@ console.log(dogsSorted);
 **CSS**
 
 ```css
-/*
  * Use this CSS to learn some intersting techniques,
  * in case you're wondering how I built the UI.
  * Have fun! 😁
