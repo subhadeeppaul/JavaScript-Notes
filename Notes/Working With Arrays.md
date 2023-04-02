@@ -17,7 +17,7 @@ console.log(dogs[i]);
 }
 ```
 
-### Methods
+## Methods
 ```js
 dogs.toString();                        // convert to string: results "Bulldog,Beagle,Labrador"
 dogs.join(" * ");                       // join: "Bulldog * Beagle * Labrador"
