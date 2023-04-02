@@ -19,6 +19,7 @@ Javascript Is
 ***First-class functions***:functions are treated as regular variables, i.e., we can pass them into other functions, and return them from functions. This is what enables functional programming in JS.
 
 ![First-Class-Function.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/First-Class-Function.png)
+
 ***Dynamically typed***: In JS we do not assign datatypes to variables. The dataytpes are known only once JS engine executes our code. Also the type of variables can easily be changed by reassigning variables.
 ***Single-threaded***: JS runs in one single thread.
 ***Non-blocking Event-Loop***: Long running tasks are executed by the event loop in the "background" and then put back in the main thread once their execution is complete.
@@ -30,9 +31,7 @@ JS Engine is, simply put, the code that executes the JS code. Every browser has 
 
 ![JS-Engine-and-Runtime.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/JS-Engine-and-Runtime.png)
 
-
 [What is the difference between Compiled language vs an Interpreted Language on SO](https://stackoverflow.com/questions/3265357/compiled-vs-interpreted-languages)
-
 - Before the code can be run by the target system (think your laptop CPU), it needs to be converted to machine code (sequence of 0s and 1s). So your JS code has to be converted to machine code. Now how is this going to happen? Compilation is the process by which the entire source code (your code) is converted into machine code at once, and written to a binary file that can be executed on any computer. Any application that you run your machine has been already previously compiled into a binary executable.
 ![Compiled language vs an Interpreted Language 1.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/Compiled%20language%20vs%20an%20Interpreted%20Language%201.png)
 
@@ -41,16 +40,15 @@ An interpreted language, on the other hand, consists of an interpreter that runs
 
 Modern JS uses a combination of Compilation and Interpretation, which is known as Just-In-Time (JIT) compilation.
 ![Compiled language vs an Interpreted Language 3.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/Compiled%20language%20vs%20an%20Interpreted%20Language%203.png)
+
 - TODO: I still don't understand what is actually happening with the JIT Compilation.
 - The first step is parsing the code that reads the JS code and converts it into a datastructure known as the AST (Abstract Syntax Tree). The compilation process takes the generated AST and converts it into machine code. This machine code is executed right away because of the JIT compilation of JS. The machine code that is generated initially is a very un-optimised version of the code just so that the execution can begin as soon as possible. In the background, the machine code is taken and recompiled while the program is already executing. During each iteration of the optimisation, the unoptimised code is swapped for the optimised code - all while the program is already executing!!
-
 ![JS-Engine-Compilation-Flow.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/JS-Engine-Compilation-Flow.png)
 
 - A JS Runtime is something that is required to run JS in the browser. It is a combination of JS Engine (discussed above), the Web APIs, and the Callback Queue. The Callback Queue is a datastructure that contains all the callback functions that are ready to be executed. What are callback functions? The functions that you attached to the event listeners are known as callback functions. So when an event happens - like a click - the corresponding callback function will be called.
 ![JS_Runtime_In_The_Browser.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/JS_Runtime_In_The_Browser.png)
 
 - This is how it happens - when a user clicks on a button, the callback function is added to the callback queue. Then, once the call stack is empty, the callback function is passed to the call stack so that it can be executed. This happens by something known as the Event Loop. The event loop picks up functions from the callback queue and places them in the call stack so that they can be executed. The event loop is basically how javascript's non-blocking concurrency model is implemented.
-
 ![JS_Runtime_In_The_Browser_2.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/JS_Runtime_In_The_Browser_2.png)
 
 - Remember that JS can also exist outside of browsers (nodeJS). In that case, the JS runtime will not contain the Web APIs, because the Web APIs are provided by the browser. In this case, the WebAPIs are replaced by C++ bindings and the thread pool.
@@ -62,11 +60,9 @@ Modern JS uses a combination of Compilation and Interpretation, which is known a
 - For example, the name variable is a part of the top-level code. Hence it will be executed in the Global execution Context. Then we have two functions - one expression and one declaration. These functions will be declared so that they can be called later. The point is that - the code inside the function will be executed only when the function is called.
 - An Execution Context is defined as an environment in which a piece of JS code is executed. The context stores all the necessary information that is required by a code to be executed - such as local variables or arguments passed to a function.
 - In every JS project, there is only one global execution context and this global execution context is where the top level code executes.
-
 ![Execution_Context.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/Execution_Context.png)
 
 - Now that we have a top-level execution context, we can begin execution of the code. For each function in the code, a new execution context is created that contains all the necessary information that that particular function requires to run. The same also goes for methods because they are just functions attached to objects. All these execution contexts together make up the call stack. Once all the functions have been executed, the JS Engine will wait for the callback function to arrive so that it can begin executing those.
-
 ![Execution_Context_2.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/Execution_Context_2.png)
 
 What is inside an Execution Context:
@@ -79,7 +75,7 @@ What is inside an Execution Context:
 
 ## Scope and The Scope Chain
 
-### Scope Concepts
+**Scope Concepts**
 - **Scoping:** How our program's variables are organized and accessed. "Where do variables live?" or "Where can we access a certain variable, and where not?",
 - **Lexical scoping:** Scoping is controlled by placement of functions and blocks in the code;
 - **Scope:** Space or environment in which a certain variable is declared (variable environment in case of functions). There is global scope, function scope, and block scope;
@@ -87,14 +83,12 @@ What is inside an Execution Context:
 
 
 ### The 3 types of Scopes
-
 ![Scopes_In_JS.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/Scopes_In_JS.png)
 
 **What is the Scope Chain?**
 - Each function creates it's own scope. Hence, *first()* and *second()* get their own scopes.
 - Every scope has access to all of the variables from all of its outer/parent scopes. All of this also applies to function `arguments`. So this is basically how the Scope Chain works - if one scope needs to use a variable but is unable to find it in the current scope, it will look up it's scope chain and see if it can find the variable in one of it's parent scopes. If it can, then it will use that variable. If it can't, then you get an error. This process is also called *variable lookup in scope chain*. Note that a scope cannot look for variables in it's children scopes.
 - Note that starting from ES6, the if-block is also able to create it's own scope. But this scope will only work for the ES6 variable types - `let` and `const`. - Take note of the *millenial* variable in the below figure. The variable is declared with the `var` keyword. Hence, it is not scoped to the block, but rather scoped to the parent function, which in this case is *first()*. Hence, unlike the *decade* variable, we see the *millenial* variable in the scope of the *first()* function.
-
 ![Scope_Chain.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/Scope_Chain.png)
 
 ### Scope Chain vs. The Call Stack
@@ -164,7 +158,6 @@ printAge(); // output: printAge is not defined
 ## Variable Environment: Hoisting and The TDZ
 - Hoisting: makes some types of variables accessible/usable in the code before they are actually declared. In other words, variables are "lifted" to the top of their scope. Behind the scenes, what actually happens is that, before execution, the code is scanned for variable declarations and for each variable a new property is created in the *variable environment object*
 - The practical implementations of hoisting is that you can use a variable in the code BEFORE it is actually declared! The value associated with the hoisted variables also varies - refer the table below.
-
 ![Hoisting_In_JS.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/Hoisting_In_JS.png)
 
 - function declarations are hoisted - this means that these types of functions can be used/called before they are declared.
@@ -172,7 +165,6 @@ printAge(); // output: printAge is not defined
 - `let` and `const` variables are not hoisted. Hence these variables cannot be used before they are declared. TDZ stands for the Temporal Dead Zone, which is indicating the region in the code where the variable is in-scope but cannot be used because it has not been declared yet.
 - For function expressions and arrow functions, the hoisting depends on whether they were created using `var`, `const`, or `let`. What this means is that function expressions and arrow functions declared with a `var` is hoisted, but to `undefined`. But if they have been declared using `let` or `const`, the functions are not usable before they have been declared in the code - because of the TDZ.
 - There is one another difference between variables declared with a `var` and `let`/ `const` - the variables declared with var are added as properties to the global `window` object in JS, whereas the variables declared with `let/const` are not.
-
 ![Temporal_Dead_Zone.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/Temporal_Dead_Zone.png)
 
 ### Hoisting Example
@@ -249,9 +241,7 @@ console.log(z === window.z); // output: false
 ```
 - variables declared with var, will create a property on the global window object. And that can have some implications in some cases.
 
-
 ## The this Keyword
-
 - The `this` keyword is a special variable that is created for every Execution Context (i.e. for each function). We saw earlier that the `this` keyword is one of the three things that are a part of the Execution Context that is created for every function. In general terms, the `this` keyword takes the value of the "owner" of the function in which the `this` keyword is used.
 - The value of `this` is not static and varies depending on the way that the function is called.
 - A function can be called in multiple ways.
@@ -259,9 +249,7 @@ console.log(z === window.z); // output: false
 - A function can be called separately - like a usual stand-alone function call. In that case, the `this` keyword is `undefined`. But `this` is only in the case when we are using the "strict" mode. If we are not using the strict mode, tehn in that case the `this` keyword is going to point at the global object, which in `this` case is the `window` object.
 - Arrow functions are not a way to call functions but they still need to be considered. Arrow functions do not get their own `this` keyword. Instead, if you use the `this` keyword in an arrow function, it is just going to be the `this` keyword of the surrounding/parent function.
 - If the function is called as an event listener, then the `this` keyword will point to the DOM Element that the handler function is attached to.
-
 ![This_Keyword.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/This_Keyword.png)
-
 
 ## The this Keyword in Practice
 ```js
@@ -300,6 +288,7 @@ matilda.calcAge(); // output: 20  (this will point to year: 2017) - So even thou
 const f = jonas.calcAge;
 f(); // Cannot read property 'year' of undefined
 ```
+
 ## Regular Functions vs. Arrow Functions
 - One important point is that arrow functions should never be used as methods on an object. You should always use function expressions. This is to do with the fact that arrow functions do not get their own `this` keyword, instead they inherit the `this` keyword from their parent scope. This can be a source of bugs.
 ```js
@@ -357,6 +346,7 @@ const gina = {
 gina.greet();
 ```
 - One way to get around this problem in solutions prior to ES6 was as follows:
+
 ```js
 const gina2 = {
     firstName: 'Gina',
@@ -400,6 +390,7 @@ const gina3 = {
 }
 gina3.greet();
 ```
+
 - Another thing is the arguments variable that we discussed earlier:
 ```js
 // arguments Keyword
@@ -427,7 +418,6 @@ arrowSummation(2,3,4);
 ## Primitives vs. Objects (Primitive vs. Reference Types)
 ![PrimitivesTypes_vs_ReferenceTypes.png](https://github.com/subhadeeppaul/JavaScript-Notes/blob/main/Images/PrimitivesTypes_vs_ReferenceTypes.png)
 
-
 ```js
 let age = 30;
 let oldAge = age;
@@ -444,8 +434,6 @@ friend.age = 27;
 console.log('Friend:', friend);
 console.log('Me', me);
 ```
-Link-Image
-
 ## Primitives vs. Objects in Practice
 ```js
 // Primitive types
